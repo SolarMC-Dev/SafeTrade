@@ -6,11 +6,19 @@ import de.oppermann.bastian.safetrade.events.TradeRequestEvent;
 import de.oppermann.bastian.safetrade.util.AcceptAction;
 import de.oppermann.bastian.safetrade.util.AcceptCommandManager;
 import de.oppermann.bastian.safetrade.util.Trade;
+// Solar start
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.event.ClickEvent;
+import net.kyori.adventure.text.event.HoverEvent;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
+/*
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.hover.content.Text;
+*/ // Solar end
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -187,7 +195,7 @@ public class TradeCommand implements CommandExecutor {
         target.sendMessage(ChatColor.GREEN + Main.getInstance().getMessages().getString("player_wants_to_trade")
                 .replace("{player}", player.getName()));
 
-        target.spigot().sendMessage(generateTextComponents());
+        target.sendMessage(generateTextComponents()); // Solar - use adventure
 
         final UUID targetUUID = target.getUniqueId();
         final String playerName = player.getName();
@@ -253,6 +261,20 @@ public class TradeCommand implements CommandExecutor {
      *
      * @return An array of text components.
      */
+    private Component generateTextComponents() {
+        Component acceptMessage = LegacyComponentSerializer.legacySection().deserialize(
+                Main.getInstance().getMessages().getString("how_to_accept_trade") + "");
+        Component acceptHover = LegacyComponentSerializer.legacySection().deserialize(
+                Main.getInstance().getMessages().getString("how_to_accept_trade_command_hover"));
+        return acceptMessage
+                .color(NamedTextColor.GREEN)
+                .clickEvent(ClickEvent.runCommand("/trade accept"))
+                .hoverEvent(HoverEvent.showText(acceptHover))
+                .replaceText((builder) -> {
+                    builder.matchLiteral("{command}").replacement(Component.text("/trade accept"));
+                });
+    }
+/* Solar start - use adventure instead of bungeechat, fixes reliance on newer bungeechat
     private BaseComponent[] generateTextComponents() {
         ComponentBuilder builder = new ComponentBuilder();
         String howToMessage = Main.getInstance().getMessages().getString("how_to_accept_trade") + " ";
@@ -268,5 +290,6 @@ public class TradeCommand implements CommandExecutor {
         builder.append(splitHowToMessage[splitHowToMessage.length - 1]).color(net.md_5.bungee.api.ChatColor.GREEN);
         return builder.create();
     }
+*/ // Solar end
 
 }

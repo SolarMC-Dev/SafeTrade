@@ -16,9 +16,11 @@ import de.oppermann.bastian.safetrade.util.InventoryUtil;
 import de.oppermann.bastian.safetrade.util.ResourceBundleControl;
 import de.oppermann.bastian.safetrade.util.Trade;
 import net.milkbowl.vault.economy.Economy;
+/* Solar start
 import org.bstats.bukkit.Metrics;
 import org.bstats.charts.SimplePie;
 import org.bstats.charts.SingleLineChart;
+*/ // Solar end
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -109,7 +111,9 @@ public class Main extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new PlayerPickupItemListener(), this);
 
         // Start metrics
+/* Solar start
         setupCharts(new Metrics(this, 4));
+*/ // Solar end
     }
 
     @Override
@@ -125,6 +129,7 @@ public class Main extends JavaPlugin {
      *
      * @param metrics The metrics class.
      */
+/* Solar start - remove metrics
     private void setupCharts(Metrics metrics) {
         // language in config
         metrics.addCustomChart(new SimplePie("used_language", () ->
@@ -175,6 +180,7 @@ public class Main extends JavaPlugin {
             return "spigotmc.org";
         }));
     }
+*/ // Solar end
 
     /**
      * Gets the {@link Economy} of the server.
@@ -294,7 +300,7 @@ public class Main extends JavaPlugin {
 
         ResourceBundle messages;
         try {
-            messages = ResourceBundle.getBundle("Messages", locale, classLoader, new ResourceBundleControl(encoding));
+            messages = ResourceBundle.getBundle("Messages", locale, classLoader); // Solar
         } catch (MissingResourceException e) {
             getLogger().log(Level.WARNING, "Could not find messages for locale "
                     + locale.toString() + "! Using the default locale now!");

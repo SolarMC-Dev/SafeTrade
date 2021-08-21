@@ -2,9 +2,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>de.oppermann.bastian.safetrade</groupId>
+<!-- Solar start -->
+    <parent>
+        <groupId>gg.solarmc</groupId>
+        <artifactId>solar-parent</artifactId>
+        <version>0.6.2</version>
+    </parent>
+
     <artifactId>safetrade</artifactId>
-    <version>1.1.1</version>
+    <version>1.1.2-SNAPSHOT</version>
+<!-- Solar end -->
 
     <name>SafeTrade</name>
 
@@ -29,6 +36,7 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+<!-- Solar start
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -51,10 +59,12 @@
                     </execution>
                 </executions>
             </plugin>
+Solar end -->
         </plugins>
     </build>
 
     <repositories>
+<!-- Solar start
         <repository>
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
@@ -63,28 +73,46 @@
             <id>vault-repo</id>
             <url>http://nexus.hc.to/content/repositories/pub_releases</url>
         </repository>
+-->
+        <repository>
+            <id>solar-releases</id>
+            <url>https://mvn-repo.solarmc.gg/releases</url>
+        </repository>
+<!-- Solar end -->
     </repositories>
 
     <dependencies>
-        <!-- Bukkit -->
+<!-- Solar start -->
+        <dependency>
+            <groupId>gg.solarmc.paper</groupId>
+            <artifactId>solarpaper-api</artifactId>
+            <version>1.2.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>gg.solarmc.vault</groupId>
+            <artifactId>VaultAPI</artifactId>
+            <version>1.7.1</version>
+            <scope>provided</scope>
+        </dependency>
+<!--
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
             <version>1.16.3-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
-        <!-- Vault -->
         <dependency>
             <groupId>net.milkbowl.vault</groupId>
             <artifactId>VaultAPI</artifactId>
             <version>1.7</version>
             <scope>provided</scope>
         </dependency>
-        <!-- bStats -->
         <dependency>
             <groupId>org.bstats</groupId>
             <artifactId>bstats-bukkit</artifactId>
             <version>2.2.1</version>
         </dependency>
+Solar end -->
     </dependencies>
 </project>

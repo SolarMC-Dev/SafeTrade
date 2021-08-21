@@ -1,6 +1,9 @@
 package de.oppermann.bastian.safetrade.util;
 
+// Solar start
+import java.util.Arrays; /*
 import com.google.common.collect.Lists;
+*/ // Solar end
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -89,7 +92,7 @@ public class Design {
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.setDisplayName(displayName);
         if (lore.length != 0) {
-            itemMeta.setLore(Lists.newArrayList(lore));
+            itemMeta.setLore(Arrays.asList(lore)); // Solar - use jdk instead of guava
         }
         itemStack.setItemMeta(itemMeta);
         return itemStack;
